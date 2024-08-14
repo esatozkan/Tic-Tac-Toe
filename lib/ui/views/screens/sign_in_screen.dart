@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tic_tac_toe/data/constants/constants.dart';
@@ -99,6 +100,49 @@ class _SignInScreenState extends State<SignInScreen> {
                   text: "Oyuncu 2",
                   textEditingController: player2Controller,
                   focusNode: player2FocusNode,
+                ),
+                SizedBox(height: height / 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      color: Theme.of(context).colorScheme.secondary,
+                      height: 2,
+                      width: (MediaQuery.of(context).size.width / 2) - 110,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        "Zorluk Seviyesi",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                    ),
+                    Container(
+                      color: Theme.of(context).colorScheme.secondary,
+                      height: 2,
+                      width: (MediaQuery.of(context).size.width / 2) - 110,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height / 8,
+                  width: width - 100,
+                  child: CupertinoPicker(
+                    backgroundColor: Colors.transparent,
+                    itemExtent: 30,
+                    scrollController:
+                        FixedExtentScrollController(initialItem: 0),
+                    onSelectedItemChanged: (int value) {
+                      difficultyLevel = value;
+                    },
+                    children: const [
+                      Text("3X3"),
+                      Text("4X4"),
+                      Text("5X5"),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tic_tac_toe/ui/providers/text_field_provider.dart';
 import 'package:tic_tac_toe/ui/providers/theme_provider.dart';
 import 'ui/views/screens/sign_in_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox("theme");
   runApp(
     MultiProvider(
       providers: [
