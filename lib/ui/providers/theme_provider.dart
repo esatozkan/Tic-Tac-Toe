@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tic_tac_toe/data/constants/constants.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeData themeData = darkMode;
+  ThemeData themeData = Hive.box("theme").get("themeData") == "darkMode" ||
+          Hive.box("theme").get("themeData") == null
+      ? darkMode
+      : lightMode;
 
   ThemeData get getThemeData => themeData;
 
@@ -19,5 +23,6 @@ class ThemeProvider extends ChangeNotifier {
       themeData = lightMode;
       notifyListeners();
     }
+    Hive.box("theme").put("themeData", themeData.toString());
   }
 }
