@@ -21,3 +21,5 @@ ThemeData darkMode = ThemeData(
 );
 
 Color wrongColor = Colors.red;
+
+String gameId="";
