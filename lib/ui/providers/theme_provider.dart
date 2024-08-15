@@ -18,11 +18,12 @@ class ThemeProvider extends ChangeNotifier {
   void toggleTheme() {
     if (themeData == lightMode) {
       themeData = darkMode;
+      Hive.box("theme").put("themeData", "darkMode");
       notifyListeners();
     } else {
       themeData = lightMode;
+      Hive.box("theme").put("themeData", "lightMode");
       notifyListeners();
     }
-    Hive.box("theme").put("themeData", themeData.toString());
   }
 }

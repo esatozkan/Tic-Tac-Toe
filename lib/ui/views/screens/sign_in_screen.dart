@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tic_tac_toe/data/constants/constants.dart';
 import 'package:tic_tac_toe/ui/providers/theme_provider.dart';
@@ -20,6 +21,7 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController player2Controller = TextEditingController();
   FocusNode player1FocusNode = FocusNode();
   FocusNode player2FocusNode = FocusNode();
+  int difficultyLevel = 3;
 
   @override
   void initState() {
@@ -32,13 +34,14 @@ class _SignInScreenState extends State<SignInScreen> {
     player2FocusNode.addListener(() {
       textFieldProvider.setFocus(player2FocusNode.hasFocus);
     });
-    player1Controller.clear();
-    player2Controller.clear();
+
     super.initState();
   }
 
   @override
   void dispose() {
+    player1Controller.clear();
+    player2Controller.clear();
     player1FocusNode.dispose();
     player2FocusNode.dispose();
     super.dispose();
@@ -127,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: height / 8,
+                  height: height / 10,
                   width: width - 100,
                   child: CupertinoPicker(
                     backgroundColor: Colors.transparent,
@@ -135,7 +138,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     scrollController:
                         FixedExtentScrollController(initialItem: 0),
                     onSelectedItemChanged: (int value) {
-                      difficultyLevel = value;
+                      if (value == 0) {
+                        difficultyLevel = 3;
+                      } else if (value == 1) {
+                        difficultyLevel = 4;
+                      } else {
+                        difficultyLevel = 5;
+                      }
                     },
                     children: const [
                       Text("3X3"),
@@ -157,10 +166,16 @@ class _SignInScreenState extends State<SignInScreen> {
               if (player1Controller.text.isNotEmpty &&
                   player2Controller.text.isNotEmpty) {
                 if (player1Controller.text != player2Controller.text) {
-                  Navigator.pushReplacement(
+                  Hive.box("players").put("player1", player1Controller.text);
+                  Hive.box("players").put("player2", player2Controller.text);
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const GameScreen(),
+                      builder: (context) => GameScreen(
+                        player1: player1Controller.text,
+                        player2: player2Controller.text,
+                        gridSize: difficultyLevel,
+                      ),
                     ),
                   );
                 } else {

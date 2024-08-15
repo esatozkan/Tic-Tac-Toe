@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:tic_tac_toe/ui/providers/game_provider.dart';
 import 'package:tic_tac_toe/ui/providers/text_field_provider.dart';
 import 'package:tic_tac_toe/ui/providers/theme_provider.dart';
 import 'ui/views/screens/sign_in_screen.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox("theme");
+  await Hive.openBox("players");
   runApp(
     MultiProvider(
       providers: [
@@ -16,6 +18,9 @@ void main() async {
         ),
         ListenableProvider(
           create: (context) => TextFieldProvider(),
+        ),
+        ListenableProvider(
+          create: (context) => GameProvider(),
         ),
       ],
       child: const MyApp(),
