@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/ui/views/widgets/game_screen_widgets/winner_show_dialog_widget.dart';
 
 class GameProvider extends ChangeNotifier {
   bool isPlayer1 = true;
@@ -13,16 +14,16 @@ class GameProvider extends ChangeNotifier {
     gameBoard = List.generate(gridSize * gridSize, (context) => null);
   }
 
-  void makeMove(int index) {
+  void makeMove(int index, context) {
     if (gameBoard[index] == null && winner == null) {
       gameBoard[index] = isPlayer1 ? "X" : "O";
       isPlayer1 = !isPlayer1;
-      checkForWinner();
+      checkForWinner(context);
       notifyListeners();
     }
   }
 
-  void checkForWinner() {
+  void checkForWinner(context) {
     int gridSize = gameBoard.length == 9
         ? 3
         : gameBoard.length == 16
@@ -41,6 +42,7 @@ class GameProvider extends ChangeNotifier {
       if (rowWin) {
         winner = gameBoard[i];
         notifyListeners();
+        winnerShowDialogWidget(context);
         return;
       }
     }
@@ -58,6 +60,7 @@ class GameProvider extends ChangeNotifier {
       if (colWin) {
         winner = gameBoard[i];
         notifyListeners();
+        winnerShowDialogWidget(context);
         return;
       }
     }
@@ -74,6 +77,7 @@ class GameProvider extends ChangeNotifier {
     if (diag1Win) {
       winner = gameBoard[0];
       notifyListeners();
+      winnerShowDialogWidget(context);
       return;
     }
 
@@ -89,12 +93,16 @@ class GameProvider extends ChangeNotifier {
     if (diag2Win) {
       winner = gameBoard[gridSize - 1];
       notifyListeners();
+      winnerShowDialogWidget(context);
       return;
     }
 
     if (!gameBoard.contains(null) && winner == null) {
       winner = "draw";
-      notifyListeners();
+      Future.delayed((const Duration(seconds: 2)), () {
+        resetGame(gridSize);
+        notifyListeners();
+      });
     }
   }
 
