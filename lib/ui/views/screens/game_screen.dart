@@ -49,70 +49,45 @@ class _GameScreenState extends State<GameScreen> {
         ),
         title: Consumer<GameProvider>(builder: (context, gameProvider, _) {
           return Text(
-              gameProvider.getIsPlayer1 ? widget.player1 : widget.player2);
+            gameProvider.getIsPlayer1 ? widget.player1 : widget.player2,
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          );
         }),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.gridSize * widget.gridSize,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: widget.gridSize,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
+        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 16),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: widget.gridSize * widget.gridSize,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: widget.gridSize,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+          ),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => gameProvider.makeMove(index, context),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.black),
                 ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => gameProvider.makeMove(index),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.black),
-                      ),
-                      child: Center(
-                        child: Consumer<GameProvider>(
-                            builder: (context, gameProvider, _) {
-                          return Text(
-                            gameProvider.getGameBoard[index] ?? "",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 48),
-                          );
-                        }),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Consumer<GameProvider>(
-              builder: (context, gameProvider, _) {
-                if (gameProvider.getWinner != null) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      gameProvider.getWinner == "draw"
-                          ? "Berabere"
-                          : "Kazanan: ${gameProvider.getWinner}",
+                child: Center(
+                  child: Consumer<GameProvider>(
+                      builder: (context, gameProvider, _) {
+                    return Text(
+                      gameProvider.getGameBoard[index] ?? "",
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  );
-                } else {
-                  return SizedBox.shrink();
-                }
-              },
-            ),
-          ],
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 48),
+                    );
+                  }),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

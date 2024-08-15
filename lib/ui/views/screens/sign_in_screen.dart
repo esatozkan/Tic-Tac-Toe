@@ -74,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(""),
+                      const Text(""),
                       Switch(
                           value: themeProvider.getThemeData == darkMode,
                           onChanged: (value) {
