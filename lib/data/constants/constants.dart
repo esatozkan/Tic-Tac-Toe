@@ -21,5 +21,3 @@ ThemeData darkMode = ThemeData(
 );
 
 Color wrongColor = Colors.red;
-
-int difficultyLevel=0;
