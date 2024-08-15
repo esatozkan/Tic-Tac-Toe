@@ -82,7 +82,7 @@ class GameHistoryIconWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           border: Border.all(
-              color: Theme.of(context).colorScheme.secondary, width: 2),
+              color: Theme.of(context).colorScheme.primary, width: 2),
           borderRadius: BorderRadius.circular(15),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -145,7 +145,7 @@ class GameHistoryIconWidget extends StatelessWidget {
                 Text(
                   "Kazanan: ",
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 18),
                 ),
                 Text(

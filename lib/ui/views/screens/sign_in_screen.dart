@@ -87,11 +87,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
                 SizedBox(height: height / 8),
-                const Text(
-                  "Tic  Tac  Toe",
+                Text(
+                  "Tic Tac Toe",
                   style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 60,
-                      fontFamily: "playlistScript",
+                      fontFamily: "libreFranklin",
                       letterSpacing: 2),
                 ),
                 SizedBox(height: height / 10),
@@ -110,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                       height: 2,
                       width: (MediaQuery.of(context).size.width / 2) - 110,
                     ),
@@ -120,11 +121,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         "Zorluk Seviyesi",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                     ),
                     Container(
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                       height: 2,
                       width: (MediaQuery.of(context).size.width / 2) - 110,
                     ),
@@ -147,10 +148,25 @@ class _SignInScreenState extends State<SignInScreen> {
                         difficultyLevel = 5;
                       }
                     },
-                    children: const [
-                      Text("3X3"),
-                      Text("4X4"),
-                      Text("5X5"),
+                    children: [
+                      Text(
+                        "3X3",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        "4X4",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        "5X5",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     ],
                   ),
                 ),

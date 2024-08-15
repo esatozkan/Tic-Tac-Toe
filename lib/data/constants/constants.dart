@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
-    surface: Colors.grey.shade400,
-    primary: Colors.grey.shade300,
-    secondary: Colors.grey.shade200,
-    tertiary: Colors.amber,
+    surface: Colors.grey.shade200,
+    primary: Colors.black,
+    secondary: Colors.grey.shade400,
+    tertiary: const Color(0xff141414),
   ),
 );
 
@@ -22,4 +22,4 @@ ThemeData darkMode = ThemeData(
 
 Color wrongColor = Colors.red;
 
-String gameId="";
+String gameId = "";

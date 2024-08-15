@@ -28,13 +28,13 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.primary,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.primary,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
@@ -42,12 +42,12 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
           hintStyle: TextStyle(
             fontFamily: "poppins",
             fontSize: 14,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w700,
           ),
         ),
-        cursorColor: Theme.of(context).colorScheme.secondary,
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        cursorColor: Theme.of(context).colorScheme.primary,
+        style: TextStyle(color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

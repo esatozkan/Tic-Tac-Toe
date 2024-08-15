@@ -79,9 +79,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: playlistScript
+    - family: libreFranklin
       fonts:
-        - asset: assets/fonts/playlist_script.ttf
+        - asset: assets/fonts/libre-franklin.ttf
     - family: poppins
       fonts:
         - asset: assets/fonts/poppins.ttf

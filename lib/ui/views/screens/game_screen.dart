@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tic_tac_toe/ui/providers/game_provider.dart';
 
+import 'sign_in_screen.dart';
+
 class GameScreen extends StatefulWidget {
   final String player1;
   final String player2;
@@ -39,7 +41,12 @@ class _GameScreenState extends State<GameScreen> {
             Box playerBox = Hive.box("players");
             playerBox.put("player1", "");
             playerBox.put("player2", "");
-            Navigator.of(context).pop();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignInScreen(),
+              ),
+            );
           },
           child: Icon(
             Icons.arrow_back,
@@ -72,7 +79,7 @@ class _GameScreenState extends State<GameScreen> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(color: Theme.of(context).colorScheme.primary),
                 ),
                 child: Center(
                   child: Consumer<GameProvider>(
