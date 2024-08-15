@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tic_tac_toe/data/constants/constants.dart';
+import 'package:tic_tac_toe/data/services/upload_game_history_firebase.dart';
 import 'package:tic_tac_toe/ui/providers/theme_provider.dart';
 import 'package:tic_tac_toe/ui/views/screens/game_screen.dart';
 import 'package:tic_tac_toe/ui/views/widgets/sign_in_screen_widgets/custom_text_field_widget.dart';
@@ -166,18 +167,22 @@ class _SignInScreenState extends State<SignInScreen> {
               if (player1Controller.text.isNotEmpty &&
                   player2Controller.text.isNotEmpty) {
                 if (player1Controller.text != player2Controller.text) {
-                  Hive.box("players").put("player1", player1Controller.text);
-                  Hive.box("players").put("player2", player2Controller.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GameScreen(
-                        player1: player1Controller.text,
-                        player2: player2Controller.text,
-                        gridSize: difficultyLevel,
+                  await uploadGameHistoryFirebase(player1Controller.text,
+                          player2Controller.text, difficultyLevel)
+                      .then((value) {
+                    Hive.box("players").put("player1", player1Controller.text);
+                    Hive.box("players").put("player2", player2Controller.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameScreen(
+                          player1: player1Controller.text,
+                          player2: player2Controller.text,
+                          gridSize: difficultyLevel,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  });
                 } else {
                   snackbarInformation(context, "Oyuncu adları aynı olamaz");
                 }

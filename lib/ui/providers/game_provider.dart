@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/data/services/reset_game_firebase.dart';
+import 'package:tic_tac_toe/data/services/upload_game_move_firebase.dart';
 import 'package:tic_tac_toe/ui/views/widgets/game_screen_widgets/winner_show_dialog_widget.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -17,13 +19,14 @@ class GameProvider extends ChangeNotifier {
   void makeMove(int index, context) {
     if (gameBoard[index] == null && winner == null) {
       gameBoard[index] = isPlayer1 ? "X" : "O";
+      uploadGameMoveFirebase(index, gameBoard[index]!);
       isPlayer1 = !isPlayer1;
       checkForWinner(context);
       notifyListeners();
     }
   }
 
-  void checkForWinner(context) {
+  void checkForWinner(context) async {
     int gridSize = gameBoard.length == 9
         ? 3
         : gameBoard.length == 16
@@ -99,9 +102,11 @@ class GameProvider extends ChangeNotifier {
 
     if (!gameBoard.contains(null) && winner == null) {
       winner = "draw";
-      Future.delayed((const Duration(seconds: 2)), () {
-        resetGame(gridSize);
-        notifyListeners();
+      await resetGameFirebase(gridSize).then((value) {
+        Future.delayed((const Duration(seconds: 1)), () {
+          resetGame(gridSize);
+          notifyListeners();
+        });
       });
     }
   }

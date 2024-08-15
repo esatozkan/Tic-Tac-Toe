@@ -4,14 +4,19 @@ import 'package:provider/provider.dart';
 import 'package:tic_tac_toe/ui/providers/game_provider.dart';
 import 'package:tic_tac_toe/ui/views/screens/game_history_screen.dart';
 
+import '../../../../data/constants/constants.dart';
+import '../../../../data/services/upload_winner_firebase.dart';
 import '../../screens/sign_in_screen.dart';
 
 Future<dynamic> winnerShowDialogWidget(BuildContext context) {
   final width = MediaQuery.of(context).size.width;
   final height = MediaQuery.of(context).size.height;
+
+  GameProvider gameProvider = Provider.of<GameProvider>(context, listen: false);
+  uploadWinner(gameId, gameProvider.getWinner!);
   return showDialog(
     context: context,
-    //  barrierDismissible: false,
+    barrierDismissible: false,
     builder: (_) => Center(
       child: Container(
         width: width * 0.8,
@@ -46,7 +51,7 @@ Future<dynamic> winnerShowDialogWidget(BuildContext context) {
             Padding(
               padding: EdgeInsets.symmetric(vertical: height / 13),
               child: Text(
-                Provider.of<GameProvider>(context, listen: false).getWinner!,
+                gameProvider.getWinner!,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 30,
